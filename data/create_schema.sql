@@ -1,5 +1,12 @@
+connect sys/system@xe as sysdba;
+
+drop user spatialdemo cascade;
 create user spatialdemo default tablespace users identified by spatialdemo;
 grant all privilege to spatialdemo;
+
+DISCONNECT;
+
+connect spatialdemo/spatialdemo@xe;
 
 CREATE TABLE city (
 	id NUMBER(10,0), 
@@ -42,3 +49,5 @@ VALUES
 CREATE INDEX country_geometry_idx
 ON country(geometry)
 INDEXTYPE IS MDSYS.SPATIAL_INDEX;
+
+exit;
