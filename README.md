@@ -13,7 +13,7 @@ Setup (Windows)
 1. Install [Oracle XE](http://www.oracle.com/technetwork/products/express-edition/overview/index.html).
    - Choose ``system`` as system user password.
    - Change Oracle XE's HTTP port as described [here](http://daust.blogspot.de/2006/01/xe-changing-default-http-port.html), since Tomcat uses the same default port (8080).
-2. Execute the batch file ``data\setup_data.bat`` to create and fill a demo schema (``spatialdemo``).
+2. Execute the batch file [``data\setup_data.bat``](/hwestphal/oracle-spatial-demo/blob/master/data/setup_data.bat) to create and fill a demo schema (``spatialdemo``).
    - Make sure that the ``sqlplus`` and ``java`` command will be found in your search path.
 3. Build and run the demo application by using Maven:
    1. ``mvn process-resources`` (installs the Oracle JDBC jar file in your local Maven repository)
