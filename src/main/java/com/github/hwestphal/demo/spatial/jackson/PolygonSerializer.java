@@ -17,9 +17,7 @@ public class PolygonSerializer extends SerializerBase<Polygon> {
 	}
 
 	@Override
-	public void serialize(Polygon value, JsonGenerator jgen,
-			SerializerProvider provider) throws IOException,
-			JsonGenerationException {
+	public void serialize(Polygon value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		jgen.writeStartArray();
 		Coordinate[] coords = value.getExteriorRing().getCoordinates();
 		for (int i = 0; i < coords.length - 1; i++) {

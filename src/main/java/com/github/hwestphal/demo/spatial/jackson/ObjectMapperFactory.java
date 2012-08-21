@@ -26,8 +26,7 @@ public class ObjectMapperFactory extends AbstractFactoryBean<ObjectMapper> {
 	protected ObjectMapper createInstance() throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		if (serializers != null && !serializers.isEmpty()) {
-			SimpleModule module = new SimpleModule(
-					UUID.randomUUID().toString(), Version.unknownVersion());
+			SimpleModule module = new SimpleModule(UUID.randomUUID().toString(), Version.unknownVersion());
 			for (JsonSerializer<?> serializer : serializers) {
 				module.addSerializer(serializer);
 			}

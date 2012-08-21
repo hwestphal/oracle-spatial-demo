@@ -25,13 +25,11 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.PrecisionModel;
 
-@MappedTypes({ Point.class, LineString.class, Polygon.class, MultiPoint.class,
-		MultiLineString.class, MultiPolygon.class, GeometryCollection.class,
+@MappedTypes({ Point.class, LineString.class, Polygon.class, MultiPoint.class, MultiLineString.class, MultiPolygon.class, GeometryCollection.class,
 		Geometry.class })
 public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
 
-	private GeometryFactory geometryFactory = new GeometryFactory(
-			new PrecisionModel(), 8307);
+	private GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 8307);
 
 	private NativeJdbcExtractor jdbcExtractor;
 
@@ -44,33 +42,26 @@ public class GeometryTypeHandler extends BaseTypeHandler<Geometry> {
 	}
 
 	@Override
-	public void setNonNullParameter(PreparedStatement ps, int i,
-			Geometry parameter, JdbcType jdbcType) throws SQLException {
+	public void setNonNullParameter(PreparedStatement ps, int i, Geometry parameter, JdbcType jdbcType) throws SQLException {
 		OracleConnection conn;
 		if (jdbcExtractor == null) {
 			conn = (OracleConnection) ps.getConnection();
 		} else {
-			conn = (OracleConnection) jdbcExtractor
-					.getNativeConnectionFromStatement(ps);
+			conn = (OracleConnection) jdbcExtractor.getNativeConnectionFromStatement(ps);
 		}
-		GeometryConverter converter = new GeometryConverter(conn,
-				parameter.getFactory());
+		GeometryConverter converter = new GeometryConverter(conn, parameter.getFactory());
 		ps.setObject(i, converter.toSDO(parameter));
 	}
 
 	@Override
-	public Geometry getNullableResult(ResultSet rs, String columnName)
-			throws SQLException {
-		GeometryConverter converter = new GeometryConverter(null,
-				geometryFactory);
+	public Geometry getNullableResult(ResultSet rs, String columnName) throws SQLException {
+		GeometryConverter converter = new GeometryConverter(null, geometryFactory);
 		return converter.asGeometry((STRUCT) rs.getObject(columnName));
 	}
 
 	@Override
-	public Geometry getNullableResult(CallableStatement cs, int columnIndex)
-			throws SQLException {
-		GeometryConverter converter = new GeometryConverter(null,
-				geometryFactory);
+	public Geometry getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+		GeometryConverter converter = new GeometryConverter(null, geometryFactory);
 		return converter.asGeometry((STRUCT) cs.getObject(columnIndex));
 	}
 

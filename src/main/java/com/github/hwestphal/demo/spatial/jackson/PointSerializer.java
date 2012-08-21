@@ -16,9 +16,7 @@ public class PointSerializer extends SerializerBase<Point> {
 	}
 
 	@Override
-	public void serialize(Point value, JsonGenerator jgen,
-			SerializerProvider provider) throws IOException,
-			JsonGenerationException {
+	public void serialize(Point value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		jgen.writeObject(value.getCoordinate());
 	}
 

@@ -22,8 +22,7 @@ import com.vividsolutions.jts.geom.PrecisionModel;
 @Controller
 public class GeoService {
 
-	private final GeometryFactory geometryFactory = new GeometryFactory(
-			new PrecisionModel(), 8307);
+	private final GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 8307);
 
 	private final ICityDao cityDao;
 	private final ICountryDao countryDao;
@@ -36,9 +35,7 @@ public class GeoService {
 
 	@RequestMapping(value = "/cities", method = RequestMethod.GET)
 	@ResponseBody
-	public List<City> getCitiesInArea(@RequestParam double east,
-			@RequestParam double west, @RequestParam double north,
-			@RequestParam double south,
+	public List<City> getCitiesInArea(@RequestParam double east, @RequestParam double west, @RequestParam double north, @RequestParam double south,
 			@RequestParam(defaultValue = "0") int population) {
 		Coordinate[] coordinates = new Coordinate[5];
 		coordinates[0] = new Coordinate(west, south);
@@ -46,15 +43,13 @@ public class GeoService {
 		coordinates[2] = new Coordinate(east, north);
 		coordinates[3] = new Coordinate(east, south);
 		coordinates[4] = coordinates[0];
-		Polygon polygon = geometryFactory.createPolygon(
-				geometryFactory.createLinearRing(coordinates), null);
+		Polygon polygon = geometryFactory.createPolygon(geometryFactory.createLinearRing(coordinates), null);
 		return cityDao.findCitiesInGeometry(polygon, population);
 	}
 
 	@RequestMapping(value = "/cities", params = "distance", method = RequestMethod.GET)
 	@ResponseBody
-	public List<City> getCitiesInDistance(@RequestParam double lat,
-			@RequestParam double lng, @RequestParam int distance) {
+	public List<City> getCitiesInDistance(@RequestParam double lat, @RequestParam double lng, @RequestParam int distance) {
 		Point point = geometryFactory.createPoint(new Coordinate(lng, lat));
 		return cityDao.findCitiesInDistance(point, distance);
 	}
@@ -67,8 +62,7 @@ public class GeoService {
 
 	@RequestMapping(value = "/country", method = RequestMethod.GET)
 	@ResponseBody
-	public Country getCountryForPoint(@RequestParam double lat,
-			@RequestParam double lng) {
+	public Country getCountryForPoint(@RequestParam double lat, @RequestParam double lng) {
 		Point point = geometryFactory.createPoint(new Coordinate(lng, lat));
 		return countryDao.findCountryByPoint(point);
 	}

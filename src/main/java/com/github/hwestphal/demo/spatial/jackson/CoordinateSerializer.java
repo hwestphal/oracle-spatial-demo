@@ -16,9 +16,7 @@ public class CoordinateSerializer extends SerializerBase<Coordinate> {
 	}
 
 	@Override
-	public void serialize(Coordinate value, JsonGenerator jgen,
-			SerializerProvider provider) throws IOException,
-			JsonGenerationException {
+	public void serialize(Coordinate value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
 		jgen.writeStartObject();
 		jgen.writeNumberField("lat", value.y);
 		jgen.writeNumberField("lng", value.x);
